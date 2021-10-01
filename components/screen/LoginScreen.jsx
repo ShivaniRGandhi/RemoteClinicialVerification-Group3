@@ -1,20 +1,30 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Input from "../Input";
 import CustomButton from "../button/CustomButton";
 
 const LoginScreen = () => {
+
+  const [isLogin, setLogin] = useState(false);
+
+  const handleLogin = () => {
+    //call login api
+    //success
+    setLogin(true)
+    //fail ...
+  }
+
   return (
     <View style={styles.container}>
       <Input placeholder="Username" style={styles.input} />
       <Input placeholder="Password" style={styles.input} isPassword={true} />
-      <TouchableOpacity
-        // onPress={() => navigation.navigate("ForgotPassword")}
+      {/* <TouchableOpacity
+         onPress={() => navigation.navigate("ForgotPassword")}
         style={styles.forgotPassBtn}
       >
         <Text style={styles.forgotPassTxt}>Forgot password?</Text>
-      </TouchableOpacity>
-      <CustomButton style={styles.signInBtn} title="SIGN IN" />
+      </TouchableOpacity> */}
+      <CustomButton style={styles.signInBtn} title="SIGN IN" onPress={handleLogin}/>
     </View>
   );
 };

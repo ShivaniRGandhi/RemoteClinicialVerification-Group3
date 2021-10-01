@@ -1,12 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-elements";
-import colors from '../../assets/colors'
+import colors from "../../assets/colors";
 
-const AppointmentItem = ({ style }) => {
+const AppointmentItem = ({ style, navigation }) => {
   return (
-    <TouchableOpacity style={styles.root}>
-      <View style={{marginRight: 15}}>
+    <TouchableOpacity
+      style={styles.root}
+      onPress={() => navigation.navigate("Appointment", {date : 'Sept. 17, 2021'})}
+    >
+      <View style={{ marginRight: 15 }}>
         <Avatar
           size="medium"
           source={{
@@ -19,9 +22,7 @@ const AppointmentItem = ({ style }) => {
         <Text style={styles.title}>CHECK-UP</Text>
         <Text style={styles.time}>10:00 am to 12:00 pm</Text>
       </View>
-      <Text style={styles.location}>
-          Richardson, Texas
-      </Text>
+      <Text style={styles.location}>Richardson, Texas</Text>
     </TouchableOpacity>
   );
 };
@@ -35,20 +36,19 @@ const styles = StyleSheet.create({
   title: {
     color: colors.text.darkGray,
 
-    fontSize: 18, 
+    fontSize: 18,
     letterSpacing: -0.5,
-    alignSelf: 'flex-start',
-    marginBottom: 12
+    alignSelf: "flex-start",
+    marginBottom: 12,
   },
-  time:{
-      color: colors.text.darkGray,
-     
+  time: {
+    color: colors.text.darkGray,
   },
   location: {
-    color: colors.text.darkGray,  
-    fontSize: 10, 
-    position: "absolute", 
-    right: 0, 
-    top: 5
-  }
+    color: colors.text.darkGray,
+    fontSize: 10,
+    position: "absolute",
+    right: 0,
+    top: 5,
+  },
 });
