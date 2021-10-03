@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-elements";
 import colors from "../../assets/colors";
 
-const AppointmentItem = ({ style, navigation }) => {
+const AppointmentItem = (props) => {
+  const { style, navigation } = props
   return (
     <TouchableOpacity
       style={styles.root}
@@ -18,7 +19,7 @@ const AppointmentItem = ({ style, navigation }) => {
         />
       </View>
 
-      <View style={styles.line}>
+      <View >
         <Text style={styles.title}>CHECK-UP</Text>
         <Text style={styles.time}>10:00 am to 12:00 pm</Text>
       </View>

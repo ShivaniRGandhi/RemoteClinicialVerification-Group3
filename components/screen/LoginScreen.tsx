@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Input from "../Input";
 import CustomButton from "../button/CustomButton";
-
+import colors from '../../assets/colors'
 const LoginScreen = () => {
 
   const [isLogin, setLogin] = useState(false);
@@ -52,10 +52,10 @@ const styles = StyleSheet.create({
     marginRight: 31,
     marginTop: 15,
   },
-  forgotPassTxt: {
-    color: colors.red,
-    fontWeight: "normal",
-    fontSize: 12,
-    lineHeight: 15,
-  },
+  // forgotPassTxt: {
+  //   color: colors.red,
+  //   fontWeight: "normal",
+  //   fontSize: 12,
+  //   lineHeight: 15,
+  // },
 });

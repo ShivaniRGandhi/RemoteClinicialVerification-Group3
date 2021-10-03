@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
-const CustomButton = ({ style, title, onPress, backgroundColor }) => {
+import colors from '../../assets/colors'
+const CustomButton = (props) => {
+  const { style, title, onPress, backgroundColor } = props
   return (
     <TouchableOpacity onPress={onPress} style={{ width: "100%" }}>
       <View
