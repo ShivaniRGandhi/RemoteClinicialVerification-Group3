@@ -42,7 +42,7 @@ export default function MainCamera() {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
@@ -64,12 +64,77 @@ export default function MainCamera() {
   };
   const __takePicture = async () => {
     const photo: any = await camera.takePictureAsync();
-    // console.log(photo);
+    console.log(photo);
     setPreviewVisible(true);
     //setStartCamera(false)
     setCapturedImage(photo);
   };
-  const __savePhoto = () => {};
+
+  const createFormData = (photo, body = {}) => {
+    const data = new FormData();
+
+    data.append('photo', {
+      name: "photo.jpg",
+      type: "image/jpeg",
+      uri: photo.uri,
+    });
+
+    Object.keys(body).forEach((key) => {
+      data.append(key, body[key]);
+    });
+
+    return data;
+  };
+  const SERVER_URL = "http://192.168.1.29:8080";
+
+  const __verifyPhoto = () => {
+    //send image to server
+    fetch(`${SERVER_URL}/image/upload/verify`, {
+      method: "POST",
+      body: createFormData(capturedImage, { userId: "123" }),
+    })
+      .then((response) => {
+        //If the response status code is between 200-299, if so
+        if (response.ok) return response.json();
+
+        //if not, throw a error
+        throw new Error("Network response was not ok");
+      })
+      .then((response) => {
+        console.log("upload succes", response);
+        alert("Upload success!");
+      })
+      .catch((error) => {
+        console.log("upload error", error);
+        alert("Upload failed!");
+      });
+  };
+
+  const __trainPhoto = () => {
+    //send image to server
+    fetch(`${SERVER_URL}/image/upload/train`, {
+      method: "POST",
+      body: createFormData(capturedImage, { userId: "123" }),
+    })
+      .then((response) => {
+        //If the response status code is between 200-299, if so
+        if (response.ok) return response.json();
+
+        //if not, throw a error
+        throw new Error("Network response was not ok");
+      })
+      .then((response) => {
+        console.log("upload succes", response);
+        alert("Upload success!");
+      })
+      .catch((error) => {
+        console.log("upload error", error);
+        alert("Upload failed!");
+      });
+  };
+
+  
+
   const __retakePicture = () => {
     setCapturedImage(null);
     setPreviewVisible(false);
@@ -87,7 +152,8 @@ export default function MainCamera() {
         {previewVisible && capturedImage ? (
           <CameraPreview
             photo={capturedImage}
-            savePhoto={__savePhoto}
+            verifyPhoto={__verifyPhoto}
+            trainPhoto={__trainPhoto}
             retakePicture={__retakePicture}
           />
         ) : (
@@ -142,7 +208,7 @@ export default function MainCamera() {
                   }}
                 >
                   <TouchableOpacity
-                  // disabled={}
+                    // disabled={}
                     onPress={__takePicture}
                     style={{
                       width: 70,
@@ -165,22 +231,7 @@ export default function MainCamera() {
                       }}
                     ></Icon>
                   </TouchableOpacity>
-
-                  {/* <Icon.Button
-                        name="ios-checkmark-circle"
-                        size={80}
-                        color="#16c60c"
-                        style={{
-                          justifyContent: 'center',
-                        alignItems: 'center',
-                          width: 80,
-                          height: 80,
-                          borderRadius: 60,
-                          padding: 0
-                        }}
-                        onPress={__takePicture}
-                        backgroundColor = "white"
-                      ></Icon.Button> */}
+                 
                 </View>
               </View>
             </View>

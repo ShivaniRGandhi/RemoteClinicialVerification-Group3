@@ -7,7 +7,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
+const CameraPreview = ({
+  photo,
+  retakePicture,
+  verifyPhoto,
+  trainPhoto,
+}: any) => {
   return (
     <View
       style={{
@@ -57,7 +62,7 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={savePhoto}
+              onPress={trainPhoto}
               style={{
                 width: 130,
                 height: 40,
@@ -72,7 +77,26 @@ const CameraPreview = ({ photo, retakePicture, savePhoto }: any) => {
                   fontSize: 20,
                 }}
               >
-                save photo
+                Train
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={verifyPhoto}
+              style={{
+                width: 130,
+                height: 40,
+
+                alignItems: "center",
+                borderRadius: 4,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 20,
+                }}
+              >
+                Verify
               </Text>
             </TouchableOpacity>
           </View>
