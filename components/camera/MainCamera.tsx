@@ -12,14 +12,16 @@ import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import * as FaceDetector from "expo-face-detector";
 import Icon from "react-native-vector-icons/Ionicons";
+import * as ImageManipulator from "expo-image-manipulator";
 
 let camera: Camera;
 export default function MainCamera() {
   const [startCamera, setStartCamera] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState<any>(null);
-
+  const [isSingleFace, setSingleFace] = useState(false);
   const [faces, setFaces] = useState([]);
+
   const green_checkmark_circle = {
     name: "checkmark-circle-sharp",
     color: "#16c60c",
@@ -33,9 +35,16 @@ export default function MainCamera() {
 
   const faceDetected = ({ faces }) => {
     setFaces(faces);
-    if (faces[0]) setIcon(green_checkmark_circle);
-    else setIcon(red_close_circle);
-    console.log({ faces });
+    //check if multiple faces
+    if (faces.length > 1 || faces.length == 0) {
+      setSingleFace(false);
+      setIcon(red_close_circle);
+      console.log("Multiple or no faces!");
+    } else {
+      setSingleFace(true);
+      setIcon(green_checkmark_circle);
+      console.log({ faces });
+    }
   };
   const [hasPermission, setHasPermission] = useState(null);
 
@@ -67,13 +76,22 @@ export default function MainCamera() {
     console.log(photo);
     setPreviewVisible(true);
     //setStartCamera(false)
-    setCapturedImage(photo);
+    //compress phto
+    const manipResult = await ImageManipulator.manipulateAsync(
+      photo.uri,
+      [{ resize: { width: 720 } }],
+      {
+        compress: 0.9,
+        format: ImageManipulator.SaveFormat.JPEG,
+      }
+    );
+    setCapturedImage(manipResult);
   };
 
   const createFormData = (photo, body = {}) => {
     const data = new FormData();
 
-    data.append('photo', {
+    data.append("photo", {
       name: "photo.jpg",
       type: "image/jpeg",
       uri: photo.uri,
@@ -114,7 +132,7 @@ export default function MainCamera() {
     //send image to server
     fetch(`${SERVER_URL}/image/upload/train`, {
       method: "POST",
-      body: createFormData(capturedImage, { userId: "123" }),
+      body: createFormData(capturedImage, { user: "Khiem" }),
     })
       .then((response) => {
         //If the response status code is between 200-299, if so
@@ -132,8 +150,6 @@ export default function MainCamera() {
         alert("Upload failed!");
       });
   };
-
-  
 
   const __retakePicture = () => {
     setCapturedImage(null);
@@ -208,7 +224,7 @@ export default function MainCamera() {
                   }}
                 >
                   <TouchableOpacity
-                    // disabled={}
+                    disabled={!isSingleFace}
                     onPress={__takePicture}
                     style={{
                       width: 70,
@@ -231,7 +247,6 @@ export default function MainCamera() {
                       }}
                     ></Icon>
                   </TouchableOpacity>
-                 
                 </View>
               </View>
             </View>
