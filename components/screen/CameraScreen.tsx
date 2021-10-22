@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import MainCamera from '../camera/MainCamera'
 
-const CameraScreen = () => {
+const CameraScreen = ({navigation}) => {
     return (
-        <MainCamera/>
+        <MainCamera navigation={navigation}/>
     )
 }
 

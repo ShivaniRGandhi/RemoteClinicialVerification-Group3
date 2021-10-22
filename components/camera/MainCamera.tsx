@@ -15,7 +15,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import * as ImageManipulator from "expo-image-manipulator";
 
 let camera: Camera;
-export default function MainCamera() {
+export default function MainCamera({navigation}) {
   const [startCamera, setStartCamera] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState<any>(null);
@@ -120,7 +120,8 @@ export default function MainCamera() {
       })
       .then((response) => {
         console.log("upload succes", response);
-        alert("Upload success!");
+        alert(response);
+        navigation.navigate("Location");
       })
       .catch((error) => {
         console.log("upload error", error);
