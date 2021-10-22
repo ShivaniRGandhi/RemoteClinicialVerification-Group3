@@ -26,10 +26,10 @@ const LocationScreen = () => {
       getDistance(
         { latitude: myCoords.latitude, longitude: myCoords.longitude },
         {
-          latitude: 51.525,
-          longitude: 7.4575,
+          latitude: 32.9143388,
+          longitude: -96.7530926,
         }
-      ) / 1.6
+      ) / (1000*1.6)
     );
   };
 
@@ -39,7 +39,7 @@ const LocationScreen = () => {
   } else if (location) {
     if (Object.keys(myCoords).length !== 0)
       text =
-        "You are " + getDistanceInMile() + " miles away from 51.525, 7.4575";
+        "You are " + getDistanceInMile() + " miles away from the destination";
     console.log("MY LOCATION: ", myCoords);
   }
 
