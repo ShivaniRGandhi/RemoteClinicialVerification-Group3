@@ -1,36 +1,50 @@
-import React, { useState } from "react";
-import { View, Text, Date } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
 import { Calendar } from "react-native-calendars";
 
-const CalendarPicker = ({ style }) => {
-  const [selectedDate, setSelectedDate] = useState("");
+const CalendarPicker = ({ onSelectDate, appointments, style }) => {
+  const getCurrentDate = () => {
+    var day = new Date().getDate();
 
-  const [appointmentSelected, setAppointmentSelected] = useState(false);
-  const appointments = ["2021-09-01", "2021-09-02"];
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var dateString = year + "-" + month + "-";
+    dateString += day < 10 ? "0" + day : day;
+
+    
+    return dateString;
+  };
+  
+  // console.log(getCurrentDate());
+  const [selectedDate, setSelectedDate] = useState(getCurrentDate());
+
   const markedDates = {
     [selectedDate]: { selected: true },
-    "2021-09-01": { marked: true, selected: appointmentSelected },
-    "2021-09-02": { marked: true, selected: appointmentSelected },
   };
- 
-  //receive a list of appointed dates
+
+  appointments.map((appointment) => {
+    if (appointment.date == selectedDate) {
+      markedDates[appointment.date] = {
+        marked: true,
+        selected: true,
+      };
+    } else {
+      markedDates[appointment.date] = {
+        marked: true,
+      };
+    }
+  });
 
   return (
     <View style={style}>
       <Calendar
         markedDates={markedDates}
         onDayPress={(day) => {
-          console.log("selected day", day);
+          console.log("selected day: ", day);
 
-          var isAppointmentSelected = appointments.some((appointment) => {
-            return appointment == day.dateString;
-          });
-
-          if (isAppointmentSelected) setAppointmentSelected(true);
-          else setAppointmentSelected(false);
-
-          console.log(appointmentSelected);
+          // console.log(appointmentSelected);
           setSelectedDate(day.dateString);
+          onSelectDate(day.dateString);
         }}
         theme={{
           selectedDayBackgroundColor: "#00adf5",

@@ -7,21 +7,24 @@ import {
   Alert,
   ImageBackground,
   Image,
+  Platform,
 } from "react-native";
 import { Camera } from "expo-camera";
 import CameraPreview from "./CameraPreview";
 import * as FaceDetector from "expo-face-detector";
 import Icon from "react-native-vector-icons/Ionicons";
 import * as ImageManipulator from "expo-image-manipulator";
+import Spinner from "react-native-loading-spinner-overlay";
+import MySpinner from "../MySpinner";
 
 let camera: Camera;
-export default function MainCamera({navigation}) {
+export default function MainCamera({ navigation }) {
   const [startCamera, setStartCamera] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState<any>(null);
   const [isSingleFace, setSingleFace] = useState(false);
   const [faces, setFaces] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   const green_checkmark_circle = {
     name: "checkmark-circle-sharp",
     color: "#16c60c",
@@ -77,15 +80,34 @@ export default function MainCamera({navigation}) {
     setPreviewVisible(true);
     //setStartCamera(false)
     //compress phto
-    const manipResult = await ImageManipulator.manipulateAsync(
-      photo.uri,
-      [{ resize: { width: 720 } }],
-      {
-        compress: 0.9,
-        format: ImageManipulator.SaveFormat.JPEG,
-      }
-    );
-    setCapturedImage(manipResult);
+
+    if (Platform.OS === "ios") {
+      const iosResult = await ImageManipulator.manipulateAsync(
+        photo.uri,
+        [{ resize: { width: 720 } }],
+        {
+          compress: 0.9,
+          format: ImageManipulator.SaveFormat.JPEG,
+        }
+      );
+      setCapturedImage(iosResult);
+    } else {
+      //android
+      const androidResult = await ImageManipulator.manipulateAsync(
+        photo.uri,
+        [
+          { resize: { width: 720 } },
+          {
+            flip: ImageManipulator.FlipType.Horizontal,
+          },
+        ],
+        {
+          compress: 0.9,
+          format: ImageManipulator.SaveFormat.JPEG,
+        }
+      );
+      setCapturedImage(androidResult);
+    }
   };
 
   const createFormData = (photo, body = {}) => {
@@ -107,26 +129,34 @@ export default function MainCamera({navigation}) {
 
   const __verifyPhoto = () => {
     //send image to server
-    fetch(`${SERVER_URL}/image/upload/verify`, {
-      method: "POST",
-      body: createFormData(capturedImage, { userId: "123" }),
-    })
-      .then((response) => {
-        //If the response status code is between 200-299, if so
-        if (response.ok) return response.json();
+    // fetch(`${SERVER_URL}/image/upload/verify`, {
+    //   method: "POST",
+    //   body: createFormData(capturedImage, { userId: "123" }),
+    // })
+    //   .then((response) => {
+    //     //If the response status code is between 200-299, if so
+    //     if (response.ok) return response.json();
 
-        //if not, throw a error
-        throw new Error("Network response was not ok");
-      })
-      .then((response) => {
-        console.log("upload succes", response);
-        alert(response);
-        navigation.navigate("Location");
-      })
-      .catch((error) => {
-        console.log("upload error", error);
-        alert("Upload failed!");
-      });
+    //     //if not, throw a error
+    //     throw new Error("Network response was not ok");
+    //   })
+    //   .then((response) => {
+    //     console.log("upload succes", response);
+    //     alert(response);
+    //     navigation.navigate("Location");
+    //   })
+    //   .catch((error) => {
+    //     console.log("upload error", error);
+    //     alert("Upload failed!");
+    //   });
+
+    //mock call server
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log("Verified");
+      navigation.navigate("Location");
+      setIsLoading(false);
+    }, 3000);
   };
 
   const __trainPhoto = () => {
@@ -254,6 +284,7 @@ export default function MainCamera({navigation}) {
           </Camera>
         )}
       </View>
+      <MySpinner visible={isLoading} textContent={"Verifing..."} />
     </View>
   );
 }
@@ -264,5 +295,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  loadingSpinner: {
+    position: "absolute",
+    alignSelf: "center",
   },
 });

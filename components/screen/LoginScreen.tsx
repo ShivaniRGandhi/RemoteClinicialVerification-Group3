@@ -1,18 +1,25 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Input from "../Input";
 import CustomButton from "../button/CustomButton";
-import colors from '../../assets/colors'
-const LoginScreen = () => {
+import colors from "../../assets/colors";
+import Spinner from "react-native-loading-spinner-overlay";
+import MySpinner from "../MySpinner";
 
+const LoginScreen = ({ navigation }) => {
   const [isLogin, setLogin] = useState(false);
 
   const handleLogin = () => {
     //call login api
     //success
-    setLogin(true)
+    setLogin(true);
+    setTimeout(() => {
+      navigation.navigate("App");
+      setLogin(false);
+    }, 2000);
+
     //fail ...
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -24,7 +31,12 @@ const LoginScreen = () => {
       >
         <Text style={styles.forgotPassTxt}>Forgot password?</Text>
       </TouchableOpacity> */}
-      <CustomButton style={styles.signInBtn} title="SIGN IN" onPress={handleLogin}/>
+      <CustomButton
+        style={styles.signInBtn}
+        title="SIGN IN"
+        onPress={handleLogin}
+      />
+      <MySpinner visible={isLogin} textContent={"Loading..."} />
     </View>
   );
 };

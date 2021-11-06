@@ -3,26 +3,36 @@ import { StyleSheet, Text, View, Button } from "react-native";
 
 import DetailItem from "../appointment/DetailItem";
 import CustomButton from "../button/CustomButton";
-import MainCamera from "../camera/MainCamera";
 
 const AppointmentScreen = (props) => {
   const { navigation, route } = props;
+  const { appointment } = route.params;
+  const [isCheckIn, setCheckIn] = useState(false);
 
-
-
+  const getAllTasks = (tasks) => {
+    let str = "";
+    tasks.map(t => {
+      str += t.title + "\n"
+    });
+    return str;
+  }
 
   return (
     <View style={styles.root}>
-      <Text style={styles.dateTitle}>{route.params.date}</Text>
-      <DetailItem title="CHECK-IN TIME" content="18:00" />
-      <DetailItem title="LOCATION" content="1300 MAINSTREET, RICHARDSON, TX" />
-      <DetailItem title="PATIENT" content="JOHN DOE" />
-      <DetailItem title="TASK(S)" content="BLOOD TEST (5 MIN)" />
+      <Text style={styles.dateTitle}>{appointment.date}</Text>
+      <DetailItem title="CHECK-IN TIME" content={appointment.time} />
+      <DetailItem
+        title="LOCATION"
+        content={appointment.address + ", " + appointment.city + ", " + appointment.state}
+      />
+      <DetailItem title="PATIENT" content={appointment.patient} />
+      <DetailItem title="TASK(S)" content={getAllTasks(appointment.tasks)} />
       <CustomButton
+        disabled={isCheckIn}
         title="CHECK IN"
         onPress={() => {
-            navigation.navigate("Camera")
-         
+          navigation.navigate("Camera");
+          setCheckIn(true);
         }}
       />
     </View>

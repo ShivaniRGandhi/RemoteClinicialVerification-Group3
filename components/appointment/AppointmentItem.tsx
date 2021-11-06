@@ -4,26 +4,26 @@ import { Avatar } from "react-native-elements";
 import colors from "../../assets/colors";
 
 const AppointmentItem = (props) => {
-  const { style, navigation } = props
+  const { style, navigation , appointment} = props
   return (
     <TouchableOpacity
       style={styles.root}
-      onPress={() => navigation.navigate("Appointment", {date : 'Sept. 17, 2021'})}
+      onPress={() => navigation.navigate("Appointment", {appointment : appointment})}
     >
       <View style={{ marginRight: 15 }}>
         <Avatar
           size="medium"
           source={{
-            uri: "https://www.altusemergency.com/wp-content/uploads/2018/02/Lumberton-1.jpg",
+            uri: appointment.imageURI,
           }}
         />
       </View>
 
       <View >
-        <Text style={styles.title}>CHECK-UP</Text>
-        <Text style={styles.time}>10:00 am to 12:00 pm</Text>
+        <Text style={styles.title}>{appointment.title}</Text>
+        <Text style={styles.time}>{appointment.time}</Text>
       </View>
-      <Text style={styles.location}>Richardson, Texas</Text>
+      <Text style={styles.location}>{appointment.city}, {appointment.state}</Text>
     </TouchableOpacity>
   );
 };
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     marginHorizontal: 22,
+    marginVertical: 10
   },
   title: {
     color: colors.text.darkGray,

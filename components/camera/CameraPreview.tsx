@@ -61,7 +61,7 @@ const CameraPreview = ({
                 Re-take
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={trainPhoto}
               style={{
                 width: 130,
@@ -79,7 +79,7 @@ const CameraPreview = ({
               >
                 Train
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={verifyPhoto}
               style={{
