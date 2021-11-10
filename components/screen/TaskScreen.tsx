@@ -1,22 +1,43 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Task from "../Task";
+import CustomButton from "../button/CustomButton";
+const TaskScreen = (props) => {
+  const [taskCompleted, setTaskCompleted] = useState(false);
 
-const TaskScreen = () => {
-const [taskCompleted, setTaskCompleted] = useState(false)
-  let tasks = [
-    { title: "Blood Test 1", completed: taskCompleted },
-    { title: "Blood Test 2", completed: taskCompleted },
-  ];
-useEffect(() => {
+  const { navigation, route } = props;
+  const { tasks } = route.params;
+  let count = 0;
+  const onCheckBox = (value) => {
     
-    return () => {
-        console.log(taskCompleted)
-    }
-}, [taskCompleted])
+    if (value) count++;
+    else count--;
+    if(count < 0)
+      count = 0;
+    if (count == tasks.length) setTaskCompleted(true);
+    else setTaskCompleted(false);
+    console.log(count)
+  };
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log(taskCompleted);
+  //   };
+  // }, []);
+
   return (
     <View>
-      <Task task={tasks[0]} />
+      {tasks.map((task) => {
+        return <Task key={task.key} data={task} onValueChange={onCheckBox} />;
+      })}
+
+      <CustomButton
+        disabled={!taskCompleted}
+        title="FINISH"
+        onPress={() => {
+        
+        }}
+      />
     </View>
   );
 };

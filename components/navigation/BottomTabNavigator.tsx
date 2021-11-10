@@ -17,7 +17,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={28} />
-          ),
+          )
         }}
       />
       <BottomTab.Screen
@@ -27,6 +27,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="tasks" color={color} size={22} />
           ),
+          
         }}
       />
       <BottomTab.Screen

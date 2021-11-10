@@ -19,10 +19,10 @@ const HomeScreen = ({ navigation }) => {
       state: "TX",
       zipcode: "75041",
       tasks: [
-        { title: "Blood pressure", time: "5 mins" },
-        { title: "Blood work", time: "5 mins" },
-        { title: "Pulse and oxygen level", time: "5 mins" },
-        { title: "Height and weight", time: "5 mins" },
+        { key: 0, title: "Blood pressure", time: "5 mins" },
+        { key: 1, title: "Blood work", time: "5 mins" },
+        { key: 2, title: "Pulse and oxygen level", time: "5 mins" },
+        { key: 3, title: "Height and weight", time: "5 mins" },
       ],
     },
     {
@@ -39,8 +39,8 @@ const HomeScreen = ({ navigation }) => {
       state: "TX",
       zipcode: "75080",
       tasks: [
-        { title: "Physical checkup", time: "20 mins" },
-        { title: "Light physical therapy", time: "30 mins" },
+        { key: 0, title: "Physical checkup", time: "20 mins" },
+        { key: 1, title: "Light physical therapy", time: "30 mins" },
       ],
     },
     {
@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
       city: "Garland",
       state: "TX",
       zipcode: "75041",
-      tasks: [{ title: "Blood pressure", time: "10 mins" }],
+      tasks: [{ key:0,title: "Blood pressure", time: "10 mins" }],
     },
   ];
   const [selectedDate, setSelectedDate] = useState("");
@@ -87,7 +87,6 @@ const HomeScreen = ({ navigation }) => {
               />
             );
         })}
-
       </View>
     </View>
   );

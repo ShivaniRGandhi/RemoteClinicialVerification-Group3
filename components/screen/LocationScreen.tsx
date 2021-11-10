@@ -7,7 +7,10 @@ import MapView from "react-native-maps";
 import CustomButton from "../button/CustomButton";
 import MySpinner from "../MySpinner";
 import DeviceInfo from 'react-native-device-info';
-const LocationScreen = ({ navigation }) => {
+const LocationScreen = (props) => {
+
+  const {navigation, route} = props
+  const {appointment} = route.params
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [myCoords, setMyCoords] = useState({});
@@ -80,7 +83,7 @@ const LocationScreen = ({ navigation }) => {
           <CustomButton
             title="Done"
             onPress={() => {
-              navigation.navigate("Task");
+              navigation.navigate("Task", {tasks: appointment.tasks});
             }}
           />
         </View>

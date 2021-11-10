@@ -1,13 +1,13 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import MainCamera from '../camera/MainCamera'
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import MainCamera from "../camera/MainCamera";
 
-const CameraScreen = ({navigation}) => {
-    return (
-        <MainCamera navigation={navigation}/>
-    )
-}
+const CameraScreen = (props) => {
+  const { navigation, route } = props;
+  const { appointment } = route.params;
+  return <MainCamera navigation={navigation} appointment={appointment} />;
+};
 
-export default CameraScreen
+export default CameraScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

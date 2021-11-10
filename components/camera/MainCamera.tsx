@@ -18,7 +18,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import MySpinner from "../MySpinner";
 
 let camera: Camera;
-export default function MainCamera({ navigation }) {
+export default function MainCamera({ navigation, appointment }) {
   const [startCamera, setStartCamera] = useState(false);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [capturedImage, setCapturedImage] = useState<any>(null);
@@ -154,7 +154,7 @@ export default function MainCamera({ navigation }) {
     setIsLoading(true);
     setTimeout(() => {
       console.log("Verified");
-      navigation.navigate("Location");
+      navigation.navigate("Location", {appointment : appointment});
       setIsLoading(false);
     }, 3000);
   };

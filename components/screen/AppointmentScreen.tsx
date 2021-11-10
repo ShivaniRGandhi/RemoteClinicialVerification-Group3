@@ -31,7 +31,7 @@ const AppointmentScreen = (props) => {
         disabled={isCheckIn}
         title="CHECK IN"
         onPress={() => {
-          navigation.navigate("Camera");
+          navigation.navigate("Camera", {appointment : appointment});
           setCheckIn(true);
         }}
       />
