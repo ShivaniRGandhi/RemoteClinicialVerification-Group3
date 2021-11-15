@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
     {
       key: 1,
       title: "CHECK UP",
-      date: "2021-11-12",
+      date: "2021-11-11",
       time: "10:00 AM",
       patient: "Luke Foo",
       location: "UT Dallas Student Health",

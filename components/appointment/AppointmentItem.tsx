@@ -4,11 +4,13 @@ import { Avatar } from "react-native-elements";
 import colors from "../../assets/colors";
 
 const AppointmentItem = (props) => {
-  const { style, navigation , appointment} = props
+  const { style, navigation, appointment } = props;
   return (
     <TouchableOpacity
       style={styles.root}
-      onPress={() => navigation.navigate("Appointment", {appointment : appointment})}
+      onPress={() =>
+        navigation.navigate("Appointment", { appointment: appointment })
+      }
     >
       <View style={{ marginRight: 15 }}>
         <Avatar
@@ -19,11 +21,23 @@ const AppointmentItem = (props) => {
         />
       </View>
 
-      <View >
+      <View>
         <Text style={styles.title}>{appointment.title}</Text>
         <Text style={styles.time}>{appointment.time}</Text>
       </View>
-      <Text style={styles.location}>{appointment.city}, {appointment.state}</Text>
+      <View>
+        <Text style={styles.location}>
+          {appointment.city}, {appointment.state}
+        </Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Location", { appointment: appointment })
+          }
+          style={styles.locationBtn}
+        >
+          <Text style={styles.locationTxt}>Location</Text>
+        </TouchableOpacity>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -33,7 +47,7 @@ const styles = StyleSheet.create({
   root: {
     flexDirection: "row",
     marginHorizontal: 22,
-    marginVertical: 10
+    marginVertical: 10,
   },
   title: {
     color: colors.text.darkGray,
@@ -50,7 +64,21 @@ const styles = StyleSheet.create({
     color: colors.text.darkGray,
     fontSize: 10,
     position: "absolute",
-    right: 0,
-    top: 5,
+    left: 80,
+    top: 0
+  },
+
+  locationBtn: {
+    alignSelf: "flex-end",
+    position: 'absolute',
+    left: 90,
+    bottom: 0
+  },
+  locationTxt: {
+    color: "black",
+    fontWeight: "normal",
+    fontSize: 15,
+    lineHeight: 15,
+    textDecorationLine: "underline",
   },
 });

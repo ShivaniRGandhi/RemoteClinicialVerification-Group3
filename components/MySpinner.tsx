@@ -10,7 +10,7 @@ const MySpinner = (props) => {
         visible={props.visible}
         textContent={props.textContent}
         textStyle={styles.text}
-        color={colors.text.darkGray}
+        color="black"
       />
    
   );
@@ -21,6 +21,6 @@ export default MySpinner;
 const styles = StyleSheet.create({
  
   text: {
-    color: colors.text.darkGray,
+    color: 'black',
   },
 });

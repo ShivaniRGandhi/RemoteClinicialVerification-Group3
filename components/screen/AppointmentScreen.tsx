@@ -27,14 +27,14 @@ const AppointmentScreen = (props) => {
       />
       <DetailItem title="PATIENT" content={appointment.patient} />
       <DetailItem title="TASK(S)" content={getAllTasks(appointment.tasks)} />
-      <CustomButton
+      {/* <CustomButton
         disabled={isCheckIn}
         title="CHECK IN"
         onPress={() => {
-          navigation.navigate("Camera", {appointment : appointment});
+          // navigation.navigate("Camera", {appointment : appointment});
           setCheckIn(true);
         }}
-      />
+      /> */}
     </View>
   );
 };

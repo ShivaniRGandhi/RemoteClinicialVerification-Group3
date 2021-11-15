@@ -75,15 +75,16 @@ const LocationScreen = (props) => {
                 latitude: myCoords.latitude,
                 longitude: myCoords.longitude,
               }}
-              title={"marker.title"}
-              description={"marker.description"}
+              title={"ABC Clinic"}
+              description={"description"}
             />
           </MapView>
           <Text style={{ alignSelf: "center" }}>{text}</Text>
           <CustomButton
-            title="Done"
+            title="Check In"
             onPress={() => {
-              navigation.navigate("Task", {tasks: appointment.tasks});
+              // navigation.navigate("Task", {tasks: appointment.tasks});
+              navigation.navigate("Camera", {appointment : appointment});
             }}
           />
         </View>

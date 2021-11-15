@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   // forgotPassTxt: {
-  //   color: colors.red,
+  //   color: "black",
   //   fontWeight: "normal",
   //   fontSize: 12,
   //   lineHeight: 15,

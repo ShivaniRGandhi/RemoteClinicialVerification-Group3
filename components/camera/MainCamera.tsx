@@ -153,8 +153,8 @@ export default function MainCamera({ navigation, appointment }) {
     //mock call server
     setIsLoading(true);
     setTimeout(() => {
-      console.log("Verified");
-      navigation.navigate("Location", {appointment : appointment});
+      console.log("Verified - Go to Task");
+       navigation.navigate("Task", {tasks : appointment.tasks});
       setIsLoading(false);
     }, 3000);
   };
