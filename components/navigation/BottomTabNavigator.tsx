@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screen/HomeScreen";
-import ProfileScreen from "../screen/ProfileScreen";
+import ProfileScreen from "../screen/profile/index";
 import TaskScreen from "../screen/TaskScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";

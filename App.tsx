@@ -14,7 +14,11 @@ const Stack = createStackNavigator();
 import { LogBox } from "react-native";
 import BottomTabNavigator from "./components/navigation/BottomTabNavigator";
 LogBox.ignoreLogs(["Remote debugger"]);
+// Ignore log notification by message:
+LogBox.ignoreLogs(['Warning: ...']);
 
+// Ignore all log notifications:
+LogBox.ignoreAllLogs();
 export default function App() {
   // if (isLogin)
   return (
