@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const Input = (props) => {
   const [isHiddenPassword, setHiddenPassword] = useState(props.isPassword);
-
+  const [text, onChangeText] = useState("");
   const togglePasswordVisibility = () => {
     setHiddenPassword(!isHiddenPassword);
   };
@@ -18,6 +18,7 @@ const Input = (props) => {
         autoCapitalize="none"
         textAlign="left"
         placeholderTextColor={colors.button.secondary}
+        onChangeText={onChangeText}
       />
       {props.isPassword && (
         <Ionicons

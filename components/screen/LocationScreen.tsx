@@ -6,17 +6,16 @@ import { Marker } from "react-native-maps";
 import MapView from "react-native-maps";
 import CustomButton from "../button/CustomButton";
 import MySpinner from "../MySpinner";
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from "react-native-device-info";
 const LocationScreen = (props) => {
-
-  const {navigation, route} = props
-  const {appointment} = route.params
+  const { navigation, route } = props;
+  const { appointment } = route.params;
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [myCoords, setMyCoords] = useState({});
   const [isMapReady, setMapReady] = useState(false);
   const [loadingText, setLoadingText] = useState("");
-
+  const [isBtn, setBtn] = useState(false);
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -29,6 +28,10 @@ const LocationScreen = (props) => {
       setLocation(location);
       setMyCoords(location.coords);
       setMapReady(true);
+      if (Math.random() < 0.5) 
+      setBtn(true)
+      else
+      setBtn(false)
     })();
   }, []);
 
@@ -46,14 +49,24 @@ const LocationScreen = (props) => {
   };
 
   let text = "";
-  if (errorMsg) {
+  if (errorMsg) { 
     text = errorMsg;
   } else if (location) {
     if (Object.keys(myCoords).length !== 0) {
       // text = "You're " + getDistanceInMile() + " miles away from the Clinic. Please keep proceeding.";
-      text = "You've arrived the location on time";
+      if (isBtn) {
+        text = "You've arrived the location on time";
+        
+      } else {
+        text =
+          "You're " +
+          getDistanceInMile() +
+          " miles away from the Clinic. Please proceed to the destination.";
+          
+      }
+
       console.log("MY LOCATION: ", myCoords);
-      console.log("MY TIME: ", new Date().toLocaleString())
+      console.log("MY TIME: ", new Date().toLocaleString());
     }
   }
 
@@ -80,13 +93,17 @@ const LocationScreen = (props) => {
             />
           </MapView>
           <Text style={{ alignSelf: "center" }}>{text}</Text>
-          <CustomButton
+          {isBtn &&
+            <CustomButton
             title="Check In"
             onPress={() => {
               // navigation.navigate("Task", {tasks: appointment.tasks});
-              navigation.navigate("Camera", {appointment : appointment});
+              navigation.navigate("Camera", { appointment: appointment });
             }}
           />
+
+          }
+          
         </View>
       ) : (
         <MySpinner visible={!isMapReady} textContent={"Fetching location..."} />

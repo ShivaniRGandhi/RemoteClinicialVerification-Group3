@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View , TouchableOpacity} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screen/HomeScreen";
 import ProfileScreen from "../screen/profile/index";
@@ -37,7 +37,7 @@ const BottomTabNavigator = ({ navigation, route }) => {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="user-alt" color={color} size={20} />
           ),
-        }}
+         }}
       />
     </BottomTab.Navigator>
   );

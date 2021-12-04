@@ -8,7 +8,7 @@ const HomeScreen = ({ navigation }) => {
     {
       key: 0,
       title: "BLOOD TEST",
-      date: "2021-11-24",
+      date: "2021-12-04",
       time: "2:00 PM",
       patient: "Bob Foo",
       location: "Central Health Clinic",
@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
     {
       key: 1,
       title: "CHECK UP",
-      date: "2021-11-22",
+      date: "2021-12-11",
       time: "10:00 AM",
       patient: "Luke Foo",
       location: "UT Dallas Student Health",
@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
     {
       key: 2,
       title: "COVID TEST",
-      date: "2021-11-29",
+      date: "2021-12-11",
       time: "4:00 PM",
       patient: "Bob Foo",
       location: "Central Health Clinic",
